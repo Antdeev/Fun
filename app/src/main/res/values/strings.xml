@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Fun</string>
+    <string name="start">Старт!</string>
+    
+    
+    
+    
+    
+    
+    
+    <string-array name="qoute">
+        <item>Я пью, чтобы окружающие меня люди становились интереснее. Джордж Жан Натан</item>
+
+
+
+
+    </string-array>
+    
+    
+</resources>
