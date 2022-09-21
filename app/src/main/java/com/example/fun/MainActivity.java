@@ -1,12 +1,12 @@
 package com.example.fun;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton buttonStartGame;
     private TextView textCup;
     int test;
+    int amountCup;// test onSaveInstanceState
+    int randomResFromArrays;//delete
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,22 @@ public class MainActivity extends AppCompatActivity {
         String[] arraysQuote = getResources().getStringArray(R.array.qoute);
         int sizeArrayQoute = arraysQuote.length;
 
+        if (savedInstanceState != null){
+            amountCup =   savedInstanceState.getInt("textCup");
+            randomResFromArrays =   savedInstanceState.getInt("random");
+            showTextView.setText(arraysQuote[randomResFromArrays]);
+            if (amountCup == 0) { textCup.setText(String.valueOf(amountCup) + "" + "! хуй тебе");}
+            if (amountCup == 1) { textCup.setText(String.valueOf(amountCup) + " " + "стакан!") ;}
+            if ((amountCup > 2) && (amountCup <= 4) ) { textCup.setText(String.valueOf(amountCup) + " " + "стаканa!") ;}
+            if (amountCup > 5)  { textCup.setText(String.valueOf(amountCup) + " " + "стаканов!") ;}
+
+        }
+
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int amountCup = random.nextInt(11);
-                int randomResFromArrays = random.nextInt(sizeArrayQoute);
+                amountCup = random.nextInt(11);
+                randomResFromArrays = random.nextInt(sizeArrayQoute);
                 if (amountCup == 0) { textCup.setText(String.valueOf(amountCup) + "" + "! хуй тебе");}
                 if (amountCup == 1) { textCup.setText(String.valueOf(amountCup) + " " + "стакан!") ;}
                 if ((amountCup > 2) && (amountCup <= 4) ) { textCup.setText(String.valueOf(amountCup) + " " + "стаканa!") ;}
@@ -50,8 +63,16 @@ public class MainActivity extends AppCompatActivity {
                 showTextView.setText(arraysQuote[randomResFromArrays]);
             }
         });
-
             }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("textCup", amountCup);
+        outState.putInt("random", randomResFromArrays);
+
+    }
 
     public void startGame(View view) {
             switch (view.getId()){
@@ -62,9 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     break;
             }
-
-
     }
+
 }
 
 
